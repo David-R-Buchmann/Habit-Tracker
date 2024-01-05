@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
+from .task_tracker import tasks
 
 views = Blueprint('views', __name__)
 
@@ -31,9 +32,33 @@ def notes():
 
 @views.route('/tasks', methods=['GET', 'POST'])
 @login_required
-def tasks():    
-    return render_template("tasks.html", user=current_user)
+def task():    
+    return render_template("tasks.html", user=current_user, tasks=tasks)
 
+@views.route('/add-task', methods=['POST'])
+def add_task():
+    task = request.form['todo']
+    tasks.append({'task': task, 'done': False})
+    return redirect(url_for("views.task"))
+
+@views.route('/edit/<int:index>', methods=['GET', 'POST'])
+def edit_tasks(index):
+    task = tasks[index]
+    if request.method == "POST":
+        task['todo'] = request.form['todo']
+        return redirect(url_for("task"))
+    else:
+        return render_template("edit.html", task=task, index=index)
+    
+@views.route('/check/<int:index>')
+def check_tasks(index):
+    tasks[index]['done'] = not tasks[index]['done']
+    return redirect(url_for("task"))
+
+@views.route('/delete/<int:index>')
+def delete_tasks(index):
+    del tasks[index]
+    return redirect(url_for("views.task"))
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
