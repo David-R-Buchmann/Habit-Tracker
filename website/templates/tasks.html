@@ -7,8 +7,9 @@
 <ul>
     {% for task in tasks %}
         <li>
-            <input type="checkbox" name="done" {% if task['done'] %} checked {%endif%} onchange="this.form.submit()">
-            <span {% if tasks['done'] %} style="text-decoration: line-through" {% endif %}>{{ task['todo'] }}</span>
+            <input type="checkbox" name="done" {% if task['done'] %} checked {%endif%} disabled onchange="this.form.submit()">
+            <span {% if task['done'] %} style="text-decoration: line-through" {% endif %}>{{ task['todo'] }}</span>
+            <a href="{{ url_for('views.check_tasks', index=loop.index0)}}">Done</a>
             <a href="{{ url_for('views.edit_tasks', index=loop.index0)}}">Edit</a>
             <a href="{{ url_for('views.delete_tasks', index=loop.index0)}}">Delete</a>
         </li>

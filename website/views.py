@@ -38,22 +38,22 @@ def task():
 @views.route('/add-task', methods=['POST'])
 def add_task():
     task = request.form['todo']
-    tasks.append({'task': task, 'done': False})
+    tasks.append({'todo': task, 'done': False})
     return redirect(url_for("views.task"))
 
 @views.route('/edit/<int:index>', methods=['GET', 'POST'])
 def edit_tasks(index):
     task = tasks[index]
     if request.method == "POST":
-        task['todo'] = request.form['todo']
-        return redirect(url_for("task"))
+        task['todo'] = request.form['task']
+        return redirect(url_for("views.task"))
     else:
-        return render_template("edit.html", task=task, index=index)
+        return render_template("edit.html", task=task, index=index, user=current_user)
     
 @views.route('/check/<int:index>')
 def check_tasks(index):
     tasks[index]['done'] = not tasks[index]['done']
-    return redirect(url_for("task"))
+    return redirect(url_for("views.task"))
 
 @views.route('/delete/<int:index>')
 def delete_tasks(index):
