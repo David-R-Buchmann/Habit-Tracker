@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, User, Task
 from . import db
 import json
 from .task_tracker import tasks
@@ -37,8 +37,17 @@ def task():
 
 @views.route('/add-task', methods=['POST'])
 def add_task():
-    task = request.form['todo']
-    tasks.append({'todo': task, 'done': False})
+    #task = request.form['todo']
+    task = request.form.get('todo')
+    if len(task) < 1:
+        flash('Task is too short!', category='error')
+    else:
+        #user.tasks.append({'todo': task, 'done': False})
+        new_task = Task(data=task, user_id=current_user.id)
+        db.session.add(new_task)
+        db.session.commit()
+        flash('Task added!')
+    
     return redirect(url_for("views.task"))
 
 @views.route('/edit/<int:index>', methods=['GET', 'POST'])
