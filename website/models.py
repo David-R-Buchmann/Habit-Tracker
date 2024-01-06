@@ -14,6 +14,7 @@ class Task(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     xp = db.Column(db.Integer)
+    done = False
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

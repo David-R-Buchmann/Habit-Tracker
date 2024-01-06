@@ -2,8 +2,8 @@
 {% block content %}
 <br/>
 <h1 align="left">Edit your task</h1>
-<form action="{{ url_for('views.edit_tasks', index=index) }}" method="post">
-    <input type="text" name="task" value="{{task['todo'] }}">
+<form action="{{ url_for('views.edit_tasks', taskId=task.id) }}" method="post">
+    <input type="text" name="task" value="{{task.data }}">
     <button type="submit" class="btn btn-success">Save</button>
 </form>
 {% endblock %}
