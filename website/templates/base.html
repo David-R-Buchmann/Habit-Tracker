@@ -38,7 +38,13 @@
           {% endif %}
         </div>
       </div>
+      {% if user.is_authenticated %}
+      <div class="navbar-nav" align="right">
+        <a class="nav-item nav-link" id="profile" href="/profile">Profile</a>
+      </div>
+      {% endif %}
     </nav>
+    
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

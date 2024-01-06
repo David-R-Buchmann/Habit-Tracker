@@ -3,7 +3,6 @@ from flask_login import login_required, current_user
 from .models import Note, User, Task
 from . import db
 import json
-from .task_tracker import tasks
 
 views = Blueprint('views', __name__)
 
@@ -12,6 +11,10 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("home.html", user=current_user)
 
+@views.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)
 
 @views.route('/notes', methods=['GET', 'POST'])
 @login_required
@@ -33,7 +36,7 @@ def notes():
 @views.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def task():    
-    return render_template("tasks.html", user=current_user, tasks=tasks)
+    return render_template("tasks.html", user=current_user)
 
 @views.route('/add-task', methods=['POST'])
 def add_task():
@@ -73,6 +76,7 @@ def delete_tasks(taskId):
         if task.user_id == current_user.id:
             db.session.delete(task)
             db.session.commit()
+            flash('Task deleted', category='success')
     
     return redirect(url_for("views.task"))
 

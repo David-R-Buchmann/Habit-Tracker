@@ -3,7 +3,12 @@
 {% block content %}
 
 <h1 align="center">Your Profile</h1>
-
-
+<br/>
+<div align="center">
+    <h3>User Name - {{ user.userName }}</h3>
+    <h3>First Name - {{ user.first_name }}</h3>
+    <h3>Current XP - {{ user.currentXp }}</h3>
+    <h3>Total XP - {{ user.totalXp }}</h3>
+</div>
 
 {% endblock %}
