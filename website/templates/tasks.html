@@ -2,12 +2,16 @@
 
 {% block content %}
 
-<div class="page-header">
-    <h1 align="center">Your Tasks</h1>
+<div align="center" class="page-header">
+    <div>
+        <span>
+            <h1><i class="fas fa-tasks" aria-hidden="true"></i> Your Tasks</h1>
+        </span>
+    </div>
 </div>
 <br/>
 <div align="center">
-<h2>Daily Tasks</h2>
+<h2><i class="fas fa-sun" aria-hidden="true"></i> Daily Tasks</h2>
 <ul class="list-group list-group-flush">
     {% for task in user.tasks %}
     {% if task.xp == 10 %}
@@ -16,19 +20,19 @@
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-success">
-                    <i class="fas fa-check"></i> Done
+                    <i class="fas fa-check"></i>
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-warning">
-                    <i class="fas fa-edit"></i> Edit
+                    <i class="fas fa-edit"></i> 
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-danger">
-                    <i class="fas fa-trash"></i> Delete
+                    <i class="fas fa-trash"></i> 
                 </button>
             </a>
             </button>
@@ -50,7 +54,7 @@
 <br/>
 
 <div align="center">
-    <h2>Weekly Tasks</h2>
+    <h2><i class="fas fa-calendar-week" aria-hidden="true"></i> Weekly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
         {% if task.xp == 25 %}
@@ -59,19 +63,19 @@
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-success">
-                    <i class="fas fa-check"></i> Done
+                    <i class="fas fa-check"></i>
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-warning">
-                    <i class="fas fa-edit"></i> Edit
+                    <i class="fas fa-edit"></i> 
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-danger">
-                    <i class="fas fa-trash"></i> Delete
+                    <i class="fas fa-trash"></i> 
                 </button>
             </a>
             </button>
@@ -93,7 +97,7 @@
 <br/>
 
 <div align="center">
-    <h2>Monthly Tasks</h2>
+    <h2><i class="fas fa-calendar-check" aria-hidden="true"></i> Monthly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
         {% if task.xp == 50 %}
@@ -102,19 +106,19 @@
                 <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
                 <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-success">
-                        <i class="fas fa-check"></i> Done
+                        <i class="fas fa-check"></i>
                     </button>
                 </a>
                 </button>
                 <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-warning">
-                        <i class="fas fa-edit"></i> Edit
+                        <i class="fas fa-edit"></i> 
                     </button>
                 </a>
                 </button>
                 <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-danger">
-                        <i class="fas fa-trash"></i> Delete
+                        <i class="fas fa-trash"></i> 
                     </button>
                 </a>
                 </button>
@@ -124,7 +128,7 @@
     </ul>
     <br/>
         <form action="{{ url_for('views.add_task', taskXp = 50) }}" method="post">
-            <input type="text" name='task'>
+            <input type="text"  style="height: 37px;" name='task'>
             <button type="submit" class="btn btn-success">
                 <span class="icon is-small">
                     <i class="fas fa-plus" aria-hidden="true"></i>
@@ -141,7 +145,8 @@
     <br/>
     <h4> Level progress:</h4>
     <h4> {{user.level_progress}} </h4>
-    <progress id="level" value="{{user.currentXp}}" max="250">{{user.currentXp}} XP</progress>
+    <br/>
+    <progress value="{{user.currentXp}}" max="250" style="width: 50%; height: 20px;" class="custom-progress"></progress>
     <h4>Level {{ current_user.level }}</h4>
 </div>
 
