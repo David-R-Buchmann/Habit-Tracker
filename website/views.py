@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
 from .models import Note, User, Task
+from .task_tracker import add_xp, subtract_xp, update_level
 from . import db
 import json
 
@@ -64,6 +65,11 @@ def edit_tasks(taskId):
 def check_tasks(taskId):
     checked_task = Task.query.get(taskId)
     checked_task.is_done = not checked_task.is_done
+    if checked_task.is_done == True:
+        add_xp(checked_task.xp)
+    else:
+        subtract_xp(checked_task.xp)
+    print(current_user.currentXp)
     db.session.commit()
     print(f"Task {taskId} checked!")
     print(f"Task belongs to User {current_user.id}")

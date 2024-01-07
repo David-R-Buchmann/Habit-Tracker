@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<h1 align="center">Your Tasks</h1>
+<div class="page-header">
+    <h1 align="center">Your Tasks</h1>
+</div>
 <br/>
 <div align="center">
 <ul class="list-group list-group-flush">
@@ -10,9 +12,24 @@
         <li class="list-group-item">
             <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
-            <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">Done</a>
-            <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">Edit</a>
-            <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">Delete</a>
+            <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done
+                </button>
+            </a>
+            </button>
+            <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-warning">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Edit
+                </button>
+            </a>
+            </button>
+            <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Delete
+                </button>
+            </a>
+            </button>
         </li>
     {% endfor %}
 </ul>
@@ -21,6 +38,22 @@
         <input type="text" name='task'>
         <button type="submit" class="btn btn-success">Add task</button>
     </form>
+</div>
+
+<br/>
+
+<div align="center">
+    <h1>Current XP</h1>
+    <h2>{{ user.currentXp }}</h2>
+    <label for="level">Level progress:</label>
+    <progress id="level" value="{{user.currentXp}}" max="250">{{user.currentXp}} XP</progress>
+</div>
+
+<br/>
+
+<div align="center">
+    <h1>Total XP</h1>
+    <h2>{{ user.totalXp }}</h2>
 </div>
 
 {% endblock %}
