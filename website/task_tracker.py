@@ -16,9 +16,9 @@ def subtract_xp(xp_amount):
 
 def update_level():
     if user.currentXp >= 250:
-        user.currentXp - 250
+        user.currentXp -= 250
         user.level += 1
     elif user.currentXp < 0:
-        user.currentXp + 250
+        user.currentXp += 250
         user.level -= 1
 

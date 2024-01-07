@@ -12,10 +12,12 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("home.html", user=current_user)
 
+
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     return render_template("profile.html", user=current_user)
+
 
 @views.route('/notes', methods=['GET', 'POST'])
 @login_required
@@ -39,15 +41,20 @@ def notes():
 def task():    
     return render_template("tasks.html", user=current_user)
 
-@views.route('/add-task', methods=['POST'])
-def add_task():
+
+@views.route('/add-task/<int:taskXp>', methods=['POST'])
+def add_task(taskXp):
     task = request.form.get('task')
-    new_task = Task(data=task, user_id=current_user.id)
-    db.session.add(new_task)
-    db.session.commit()
-    flash('Task added!')
-    print(new_task.is_done)
+    if len(task) < 1:
+        flash('Task name too short!', category='error')
+    else:
+        new_task = Task(data=task, user_id=current_user.id, xp=taskXp)
+        db.session.add(new_task)
+        db.session.commit()
+        flash('Task added!')
+        print(new_task.is_done)
     return redirect(url_for("views.task"))
+
 
 @views.route('/edit/<int:taskId>', methods=['GET', 'POST'])
 def edit_tasks(taskId):
@@ -60,7 +67,8 @@ def edit_tasks(taskId):
         return redirect(url_for("views.task"))
     else:
         return render_template("edit.html", task=task, user=current_user)
-    
+
+
 @views.route('/check/<int:taskId>')
 def check_tasks(taskId):
     checked_task = Task.query.get(taskId)
@@ -69,12 +77,9 @@ def check_tasks(taskId):
         add_xp(checked_task.xp)
     else:
         subtract_xp(checked_task.xp)
-    print(current_user.currentXp)
     db.session.commit()
-    print(f"Task {taskId} checked!")
-    print(f"Task belongs to User {current_user.id}")
-    print(checked_task.is_done)
     return redirect(url_for("views.task"))
+
 
 @views.route('/delete/<int:taskId>')
 def delete_tasks(taskId):
@@ -86,6 +91,7 @@ def delete_tasks(taskId):
             flash('Task deleted', category='error')
     
     return redirect(url_for("views.task"))
+
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
