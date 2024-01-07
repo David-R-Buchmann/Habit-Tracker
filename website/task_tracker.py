@@ -5,7 +5,6 @@ from . import db
 
 user=current_user
 
-rewards = [{'reward': '5 € Steam Guthaben', 'date': '07.01.2024'}]
 
 def add_xp(xp_amount):
     user.currentXp += xp_amount
@@ -16,6 +15,7 @@ def subtract_xp(xp_amount):
     user.currentXp -= xp_amount
     user.totalXp -= xp_amount
     update_level()
+    print(5 - (user.level % 5))
 
 def update_level():
     if user.currentXp >= 250:

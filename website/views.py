@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
 from flask_login import login_required, current_user
-from .models import Note, User, Task
+from .models import Note, User, Task, Reward
 from .task_tracker import add_xp, subtract_xp, update_level
 from . import db
 import json
@@ -18,6 +18,10 @@ def home():
 def profile():
     return render_template("profile.html", user=current_user)
 
+@views.route('/rewards', methods=['GET', 'POST'])
+@login_required
+def rewards():
+    return render_template("rewards.html", user=current_user)
 
 @views.route('/notes', methods=['GET', 'POST'])
 @login_required
@@ -103,3 +107,38 @@ def delete_note():
             db.session.commit()
     
     return jsonify({})
+
+@views.route('/add-reward', methods=['POST'])
+def add_rewards():
+    reward = request.form.get('reward')
+    if len(reward) < 1:
+        flash('Reward name too short!', category='error')
+    else:
+        new_reward = Reward(data=reward, user_id=current_user.id)
+        db.session.add(new_reward)
+        db.session.commit()
+        flash('Reward added!')
+    return redirect(url_for("views.rewards"))
+
+
+@views.route('/edit-task/<int:rewardId>', methods=['GET', 'POST'])
+def edit_rewards(rewardId):
+    reward = Reward.query.get(rewardId)
+    if request.method == "POST":
+        reward.data = request.form['reward']
+        db.session.commit()
+        return redirect(url_for("views.rewards"))
+    else:
+        return render_template("edit-reward.html", reward=reward, user=current_user)
+
+
+@views.route('/delete-task/<int:rewardId>')
+def delete_rewards(rewardId):
+    reward = Reward.query.get(rewardId)
+    if reward:
+        if reward.user_id == current_user.id:
+            db.session.delete(reward)
+            db.session.commit()
+            flash('Reward deleted', category='error')
+    
+    return redirect(url_for("views.rewards"))
