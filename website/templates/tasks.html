@@ -39,7 +39,11 @@
 <br/>
     <form action="{{ url_for('views.add_task', taskXp = 10)}}" method="post">
         <input type="text" name='task'>
-        <button type="submit" class="btn btn-success">Add task</button>
+        <button type="submit" class="btn btn-success">
+            <span class="icon is-small">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+            </span>Add task
+        </button>
     </form>
 </div>
 
@@ -78,7 +82,11 @@
     <br/>
         <form action="{{ url_for('views.add_task', taskXp = 25) }}" method="post">
             <input type="text" name='task'>
-            <button type="submit" class="btn btn-success">Add task</button>
+            <button type="submit" class="btn btn-success">
+                <span class="icon is-small">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                </span>Add task
+            </button>
         </form>
     </div>
 
@@ -117,7 +125,11 @@
     <br/>
         <form action="{{ url_for('views.add_task', taskXp = 50) }}" method="post">
             <input type="text" name='task'>
-            <button type="submit" class="btn btn-success">Add task</button>
+            <button type="submit" class="btn btn-success">
+                <span class="icon is-small">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                </span>Add task
+            </button>
         </form>
     </div>
 
