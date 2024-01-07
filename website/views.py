@@ -55,6 +55,7 @@ def edit_tasks(taskId):
     task = Task.query.get(taskId)
     if request.method == "POST":
         task.data = request.form['task']
+        db.session.commit()
         return redirect(url_for("views.task"))
     else:
         return render_template("edit.html", task=task, user=current_user)
