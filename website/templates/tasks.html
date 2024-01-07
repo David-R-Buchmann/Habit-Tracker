@@ -16,19 +16,19 @@
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done
+                    <i class="fas fa-check"></i> Done
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-warning">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Edit
+                    <i class="fas fa-edit"></i> Edit
                 </button>
             </a>
             </button>
             <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-danger">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Delete
+                    <i class="fas fa-trash"></i> Delete
                 </button>
             </a>
             </button>
@@ -50,28 +50,28 @@
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
         {% if task.xp == 25 %}
-            <li class="list-group-item">
-                <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
-                <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
-                <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
-                    <button type="button" class="btn btn-sm btn-success">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done
-                    </button>
-                </a>
+        <li class="list-group-item">
+            <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
+            <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
+            <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-success">
+                    <i class="fas fa-check"></i> Done
                 </button>
-                <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
-                    <button type="button" class="btn btn-sm btn-warning">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Edit
-                    </button>
-                </a>
+            </a>
+            </button>
+            <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-warning">
+                    <i class="fas fa-edit"></i> Edit
                 </button>
-                <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
-                    <button type="button" class="btn btn-sm btn-danger">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Delete
-                    </button>
-                </a>
+            </a>
+            </button>
+            <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
+                <button type="button" class="btn btn-sm btn-danger">
+                    <i class="fas fa-trash"></i> Delete
                 </button>
-            </li>
+            </a>
+            </button>
+        </li>
         {% endif %}
         {% endfor %}
     </ul>
@@ -94,19 +94,19 @@
                 <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
                 <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-success">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Done
+                        <i class="fas fa-check"></i> Done
                     </button>
                 </a>
                 </button>
                 <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-warning">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Edit
+                        <i class="fas fa-edit"></i> Edit
                     </button>
                 </a>
                 </button>
                 <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-danger">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Delete
+                        <i class="fas fa-trash"></i> Delete
                     </button>
                 </a>
                 </button>
@@ -125,9 +125,10 @@
 
 <div align="center">
     <h1>Current XP</h1>
-    <h2>{{ user.currentXp }}</h2>
+    <h2>{{ user.currentXp }}/250</h2>
     <br/>
     <h4> Level progress:</h4>
+    <h4> {{user.level_progress}} </h4>
     <progress id="level" value="{{user.currentXp}}" max="250">{{user.currentXp}} XP</progress>
     <h4>Level {{ current_user.level }}</h4>
 </div>
@@ -138,5 +139,7 @@
     <h1>Total XP</h1>
     <h2>{{ user.totalXp }}</h2>
 </div>
+
+<br/>
 
 {% endblock %}

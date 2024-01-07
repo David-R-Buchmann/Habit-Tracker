@@ -26,3 +26,4 @@ class User(db.Model, UserMixin):
     totalXp = db.Column(db.Integer, default=0)
     currentXp = db.Column(db.Integer, default=0)
     level = db.Column(db.Integer, default=0)
+    level_progress = db.Column(db.String(1000), default = '0 %')

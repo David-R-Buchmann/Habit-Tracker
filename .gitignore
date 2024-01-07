@@ -9,3 +9,4 @@ website/__pycache__/views.cpython-311.pyc
 app.py
 instance/database.db
 *.db
+website/__init__.py
