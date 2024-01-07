@@ -40,23 +40,18 @@ def task():
 
 @views.route('/add-task', methods=['POST'])
 def add_task():
-    #task = request.form['todo']
     task = request.form.get('task')
-    #if len(task) < 1:
-    #    flash('Task is too short!', category='error')
-    #else:
-        #user.tasks.append({'todo': task, 'done': False})
     new_task = Task(data=task, user_id=current_user.id)
     db.session.add(new_task)
     db.session.commit()
     flash('Task added!')
-    
+    print(new_task.is_done)
     return redirect(url_for("views.task"))
 
 @views.route('/edit/<int:taskId>', methods=['GET', 'POST'])
 def edit_tasks(taskId):
-    task = json.loads(request.data)
-    taskId = task['taskId']
+    # task = json.loads(request.data)
+    # taskId = task['taskId']
     task = Task.query.get(taskId)
     if request.method == "POST":
         task.data = request.form['task']
@@ -66,7 +61,12 @@ def edit_tasks(taskId):
     
 @views.route('/check/<int:taskId>')
 def check_tasks(taskId):
-    task.done = not task.done
+    checked_task = Task.query.get(taskId)
+    checked_task.is_done = not checked_task.is_done
+    db.session.commit()
+    print(f"Task {taskId} checked!")
+    print(f"Task belongs to User {current_user.id}")
+    print(checked_task.is_done)
     return redirect(url_for("views.task"))
 
 @views.route('/delete/<int:taskId>')
@@ -76,7 +76,7 @@ def delete_tasks(taskId):
         if task.user_id == current_user.id:
             db.session.delete(task)
             db.session.commit()
-            flash('Task deleted', category='success')
+            flash('Task deleted', category='error')
     
     return redirect(url_for("views.task"))
 

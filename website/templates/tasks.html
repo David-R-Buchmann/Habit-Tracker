@@ -8,8 +8,8 @@
 <ul class="list-group list-group-flush">
     {% for task in user.tasks %}
         <li class="list-group-item">
-            <input type="checkbox" name="done" {% if task.done %} checked {%endif%} disabled onchange="this.form.submit()">
-            <span {% if task.done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
+            <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
+            <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">Done</a>
             <a href="{{ url_for('views.edit_tasks', taskId = task.id)}}">Edit</a>
             <a href="{{ url_for('views.delete_tasks', taskId = task.id)}}">Delete</a>

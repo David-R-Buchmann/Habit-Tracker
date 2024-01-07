@@ -8,3 +8,4 @@ website/__pycache__/tasks.cpython-311.pyc
 website/__pycache__/views.cpython-311.pyc
 app.py
 instance/database.db
+*.db
