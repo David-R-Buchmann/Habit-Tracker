@@ -16,7 +16,7 @@
 <h2><i class="fas fa-sun" aria-hidden="true"></i> Daily Tasks</h2>
 <ul class="list-group list-group-flush">
     {% for task in user.tasks %}
-    {% if task.xp == 10 %}
+    {% if task.xp == user.dailyXpValue %}
         <li class="list-group-item">
             <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
@@ -43,8 +43,8 @@
     {% endfor %}
 </ul>
 <br/>
-    <form action="{{ url_for('views.add_task', taskXp = 10)}}" method="post">
-        <input type="text" name='task'>
+    <form action="{{ url_for('views.add_task', taskXp = user.dailyXpValue)}}" method="post">
+        <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
         <button type="submit" class="btn btn-success">
             <span class="icon is-small">
                 <i class="fas fa-plus" aria-hidden="true"></i>
@@ -60,7 +60,7 @@
     <h2><i class="fas fa-calendar-week" aria-hidden="true"></i> Weekly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
-        {% if task.xp == 25 %}
+        {% if task.xp == user.weeklyXpValue %}
         <li class="list-group-item">
             <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
@@ -87,8 +87,8 @@
         {% endfor %}
     </ul>
     <br/>
-        <form action="{{ url_for('views.add_task', taskXp = 25) }}" method="post">
-            <input type="text" name='task'>
+        <form action="{{ url_for('views.add_task', taskXp = user.weeklyXpValue) }}" method="post">
+            <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
             <button type="submit" class="btn btn-success">
                 <span class="icon is-small">
                     <i class="fas fa-plus" aria-hidden="true"></i>
@@ -104,7 +104,7 @@
     <h2><i class="fas fa-calendar-check" aria-hidden="true"></i> Monthly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
-        {% if task.xp == 50 %}
+        {% if task.xp == user.monthlyXpValue %}
             <li class="list-group-item">
                 <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
                 <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
@@ -131,8 +131,8 @@
         {% endfor %}
     </ul>
     <br/>
-        <form action="{{ url_for('views.add_task', taskXp = 50) }}" method="post">
-            <input type="text"  style="height: 37px;" name='task'>
+        <form action="{{ url_for('views.add_task', taskXp = user.monthlyXpValue) }}" method="post">
+            <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
             <button type="submit" class="btn btn-success">
                 <span class="icon is-small">
                     <i class="fas fa-plus" aria-hidden="true"></i>
@@ -146,12 +146,12 @@
 
 <div align="center">
     <h1>Current XP</h1>
-    <h2>{{ user.currentXp }}/250</h2>
+    <h2>{{ user.currentXp }}/{{ user.levelRequirement }}</h2>
     <br/>
     <h4> Level progress:</h4>
     <h4> {{user.level_progress}} </h4>
     <br/>
-    <progress value="{{user.currentXp}}" max="250" style="width: 50%; height: 20px;" class="custom-progress"></progress>
+    <progress value="{{user.currentXp}}" max="{{user.levelRequirement}}" style="width: 50%; height: 20px;" class="custom-progress"></progress>
     <h4>Level {{ current_user.level }}</h4>
 </div>
 

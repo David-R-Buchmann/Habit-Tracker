@@ -18,15 +18,15 @@ def subtract_xp(xp_amount):
     print(5 - (user.level % 5))
 
 def update_level():
-    if user.currentXp >= 250:
-        user.currentXp -= 250
+    if user.currentXp >= user.levelRequirement:
+        user.currentXp -= user.levelRequirement
         user.level += 1
         grant_reward(user.level)
     elif user.currentXp < 0:
-        user.currentXp += 250
+        user.currentXp += user.levelRequirement
         user.level -= 1
     
-    new_level_progress = int((user.currentXp / 250) * 100)
+    new_level_progress = int((user.currentXp / user.levelRequirement) * 100)
     user.level_progress = f'{new_level_progress} %'
     db.session.commit()
 

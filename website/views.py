@@ -142,3 +142,31 @@ def delete_rewards(rewardId):
             flash('Reward deleted', category='error')
     
     return redirect(url_for("views.rewards"))
+
+@views.route('/update-value', methods=['POST'])
+def update_value():
+    if request.method == 'POST':
+        if 'dailyXp_update' in request.form:
+            updatedDailyXpValue = int(request.form['dailyXp_update'])
+            if updatedDailyXpValue >= current_user.weeklyXpValue:
+                flash('Daily XP task value has to be lower than weekly XP task value!', category='error')
+            else:
+                current_user.dailyXpValue = updatedDailyXpValue
+        if 'weeklyXp_update' in request.form:
+            updatedWeeklyXpValue = int(request.form['weeklyXp_update'])
+            if updatedWeeklyXpValue <= current_user.dailyXpValue:
+                flash('Weekly XP task value has to be higher than daily XP task value!', category='error')
+            elif updatedWeeklyXpValue >= current_user.monthlyXpValue:
+                flash('Weekly XP task value has to be lower than monthly XP task value')
+            else:
+                current_user.weeklyXpValue = updatedWeeklyXpValue
+        if 'monthlyXp_update' in request.form:
+            updatedMonthlyXpValue = int(request.form['monthlyXp_update'])
+            if updatedMonthlyXpValue <= current_user.weeklyXpValue:
+                flash('Monthly Xp task value has to be higher than weekly XP task value!', category='error')
+            current_user.monthlyXpValue = updatedMonthlyXpValue
+        if 'levelRequirement_update' in request.form:
+            current_user.levelRequirement = request.form['levelRequirement_update']
+        db.session.commit()
+    
+    return redirect(url_for('views.profile'))

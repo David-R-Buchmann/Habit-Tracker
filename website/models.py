@@ -35,3 +35,7 @@ class User(db.Model, UserMixin):
     currentXp = db.Column(db.Integer, default=0)
     level = db.Column(db.Integer, default=0)
     level_progress = db.Column(db.String(1000), default = '0 %')
+    dailyXpValue = db.Column(db.Integer, default=10)
+    weeklyXpValue = db.Column(db.Integer, default=25)
+    monthlyXpValue = db.Column(db.Integer, default=50)
+    levelRequirement = db.Column(db.Integer, default=500)

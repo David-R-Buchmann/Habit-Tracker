@@ -14,4 +14,62 @@
     </li>
 </div>
 
+<br/>
+
+<div align="center">
+    <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+    <h3> Set your custom XP rewards here</h3>
+    <form action="{{ url_for('views.update_value') }}" method="post">
+        <input type="text" name='dailyXp_update' id='dailyXp_update' data-indicator="newDailyXp" placeholder="Enter daily task XP" style="height: 34px">
+        <button type="submit" class="btn btn-success">
+            <span class="icon is-small">
+                <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>Update value
+        </button> Standard value: 10 XP
+    </form>
+    Current value: {{current_user.dailyXpValue}}
+    <br/>
+    <form action="{{ url_for('views.update_value') }}" method="post">
+        <input type="text" name='weeklyXp_update' id='weeklyXp_update' data-indicator="newWeeklyXp" placeholder="Enter weekly task XP" style="height: 34px">
+        <button type="submit" class="btn btn-success">
+            <span class="icon is-small">
+                <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>Update value
+        </button> Standard value: 25 XP
+    </form>
+    Current value: {{current_user.weeklyXpValue}}
+    <br/>
+    <form action="{{ url_for('views.update_value') }}" method="post">
+        <input type="text" name='monthlyXp_update' id='monthlyXp_update' data-indicator="newMonthlyXp" placeholder="Enter monthly task XP" style="height: 34px">
+        <button type="submit" class="btn btn-success">
+            <span class="icon is-small">
+                <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>Update value
+        </button> Standard value: 50 XP
+    </form>
+    Current value: {{current_user.monthlyXpValue}}
+</li>
+</ul>
+</div>
+
+<br/>
+
+<div align="center">
+    <h3> Set your custom XP per level here</h3>
+    <form action="{{ url_for('views.update_value') }}" method="post">
+        <input type="text" name='levelRequirement_update' id='levelRequirement_update' placeholder="Enter XP requirement" style="height: 34px">
+        <button type="submit" class="btn btn-success">
+            <span class="icon is-small">
+                <i class="fas fa-sync" aria-hidden="true"></i>
+            </span>Update value
+        </button> Standard value: 500 XP
+    </form>
+    Current value: {{current_user.levelRequirement}}
+    <h4 style="color:Red;">Warning: This could mess with your level progress.</h4>
+    <h6 style="color:Red;">It is recommended to be set only once in the beginning.</h6>
+</div>
+
+
+
 {% endblock %}
