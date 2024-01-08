@@ -2,10 +2,10 @@
 {% block content %}
 <br/>
 <div align="center">
-    <h1> Your Reward Center </h1>
+    <h1 class="title is-1"> Your Reward Center </h1>
     <br/>
-    <h2> Current Level</h2>
-    <h2> {{ user.level }} </h2>
+    <h2 class="title is-2"> Current Level</h2>
+    <h2 class="title is-2"> {{ user.level }} </h2>
     <br/>
 
 </div>
@@ -13,7 +13,7 @@
 <br/>
 
 <div align="center">
-    <h2><i class="fas fa-gift" aria-hidden="true"></i> Next Rewards</h2>
+    <h2 class="title is-2"><i class="fas fa-gift" aria-hidden="true"></i> Next Rewards</h2>
     <ul class="list-group list-group-flush">
         {% for reward in user.rewards %}
             <li class="list-group-item">
@@ -47,6 +47,6 @@
     <br/>
 
 <div align="center">    
-    <h3> Reward history </h3>
+    <h3 class="title is-3"> Reward history </h3>
 </div>
 {% endblock %}

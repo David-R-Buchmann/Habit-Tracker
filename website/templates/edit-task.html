@@ -2,7 +2,7 @@
 {% block content %}
 <br/>
 <div align="center">
-    <h1>Edit your task</h1>
+    <h1 class="title is-1">Edit your task</h1>
     <form action="{{ url_for('views.edit_tasks', taskId=task.id) }}" method="post">
         <input type="text" name="task" value="{{task.data }}">
         <button type="submit" class="btn btn-success">Save</button>

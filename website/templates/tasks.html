@@ -7,13 +7,13 @@
 <div align="center" class="page-header">
     <div>
         <span>
-            <h1><i class="fas fa-tasks" aria-hidden="true"></i> Your Tasks</h1>
+            <h1 class="title is-1"><i class="fas fa-tasks" aria-hidden="true"></i> Your Tasks</h1>
         </span>
     </div>
 </div>
 <br/>
 <div align="center">
-<h2><i class="fas fa-sun" aria-hidden="true"></i> Daily Tasks</h2>
+<h2 class="title is-2"><i class="fas fa-sun" aria-hidden="true"></i> Daily Tasks</h2>
 <ul class="list-group list-group-flush">
     {% for task in user.tasks %}
     {% if task.xp == user.dailyXpValue %}
@@ -57,7 +57,7 @@
 <br/>
 
 <div align="center">
-    <h2><i class="fas fa-calendar-week" aria-hidden="true"></i> Weekly Tasks</h2>
+    <h2 class="title is-2"><i class="fas fa-calendar-week" aria-hidden="true"></i> Weekly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
         {% if task.xp == user.weeklyXpValue %}
@@ -101,7 +101,7 @@
 <br/>
 
 <div align="center">
-    <h2><i class="fas fa-calendar-check" aria-hidden="true"></i> Monthly Tasks</h2>
+    <h2 class="title is-2"><i class="fas fa-calendar-check" aria-hidden="true"></i> Monthly Tasks</h2>
     <ul class="list-group list-group-flush">
         {% for task in user.tasks %}
         {% if task.xp == user.monthlyXpValue %}
@@ -145,21 +145,21 @@
 <br/>
 
 <div align="center">
-    <h1>Current XP</h1>
-    <h2>{{ user.currentXp }}/{{ user.levelRequirement }}</h2>
+    <h1 class="title is-1">Current XP</h1>
+    <h2 class="title is-2">{{ user.currentXp }}/{{ user.levelRequirement }}</h2>
     <br/>
-    <h4> Level progress:</h4>
-    <h4> {{user.level_progress}} </h4>
+    <h4 class="title is-4"> Level progress:</h4>
+    <h4 class="title is-4"> {{user.level_progress}} </h4>
     <br/>
-    <progress value="{{user.currentXp}}" max="{{user.levelRequirement}}" style="width: 50%; height: 20px;" class="custom-progress"></progress>
-    <h4>Level {{ current_user.level }}</h4>
+    <h3 class="title is-3">Level {{ current_user.level }}</h3>
 </div>
-
+<br/>
+<progress class="progress is-success" value="{{user.currentXp}}" max="{{user.levelRequirement}}">{{user.level_progress}}%</progress>
 <br/>
 
 <div align="center">
-    <h1>Total XP</h1>
-    <h2>{{ user.totalXp }}</h2>
+    <h1 class="title is-1">Total XP</h1>
+    <h2 class="title is-2">{{ user.totalXp }}</h2>
 </div>
 
 <br/>

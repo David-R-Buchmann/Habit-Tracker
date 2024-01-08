@@ -2,7 +2,7 @@
 {% block content %}
 <br/>
 <div align="center">
-    <h1>Edit your reward</h1>
+    <h1 class="title is-1">Edit your reward</h1>
     <form action="{{ url_for('views.edit_rewards', rewardId=reward.id) }}" method="post">
         <input type="text" name="reward" value="{{ reward.data }}">
         <button type="submit" class="btn btn-success">Save</button>
