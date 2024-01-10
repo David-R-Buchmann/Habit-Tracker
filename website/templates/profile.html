@@ -28,14 +28,14 @@
     </div>
     <div class="level-item has-text-centered">
         <div>
-            <p class="heading is-size-6">Current Level</p>
-            <p class="title">{{ user.level }}</p>
+            <p class="heading is-size-6">Completed Tasks</p>
+            <p class="title">{{ user.tasksCompleted }}</p>
         </div>
     </div>
     <div class="level-item has-text-centered">
         <div>
-            <p class="heading is-size-6">Completed Tasks</p>
-            <p class="title">789</p>
+            <p class="heading is-size-6">Current Level</p>
+            <p class="title">{{ user.level }}</p>
         </div>
     </div>
 </nav>
@@ -56,6 +56,7 @@
             </form>
             Current value: {{current_user.dailyXpValue}}
             <br/>
+            <br/>
             <form action="{{ url_for('views.update_value') }}" method="post">
                 <input type="text" name='weeklyXp_update' id='weeklyXp_update' data-indicator="newWeeklyXp" placeholder="Enter weekly task XP" style="height: 34px">
                 <button type="submit" class="btn btn-success">
@@ -65,6 +66,7 @@
                 </button> Standard value: 25 XP
             </form>
             Current value: {{current_user.weeklyXpValue}}
+            <br/>
             <br/>
             <form action="{{ url_for('views.update_value') }}" method="post">
                 <input type="text" name='monthlyXp_update' id='monthlyXp_update' data-indicator="newMonthlyXp" placeholder="Enter monthly task XP" style="height: 34px">
@@ -92,6 +94,8 @@
         </button> Standard value: 500 XP
     </form>
     Current value: {{current_user.levelRequirement}}
+    <br/>
+    <br/>
     <p>
         <h4  class="title is-size-4 is-family-code" style="color:Red;">Warning: This could mess with your level progress.</h4>
         <h6  class="title is-size-6 is-family-code" style="color:Red;">It is recommended to be set only once in the beginning.</h6>

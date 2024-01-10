@@ -9,13 +9,14 @@ user=current_user
 def add_xp(xp_amount):
     user.currentXp += xp_amount
     user.totalXp += xp_amount
+    user.tasksCompleted += 1
     update_level()
 
 def subtract_xp(xp_amount):
     user.currentXp -= xp_amount
     user.totalXp -= xp_amount
+    user.tasksCompleted -= 1
     update_level()
-    print(5 - (user.level % 5))
 
 def update_level():
     if user.currentXp >= user.levelRequirement:

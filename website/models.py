@@ -39,3 +39,4 @@ class User(db.Model, UserMixin):
     weeklyXpValue = db.Column(db.Integer, default=25)
     monthlyXpValue = db.Column(db.Integer, default=50)
     levelRequirement = db.Column(db.Integer, default=500)
+    tasksCompleted = db.Column(db.Integer, default=0)
