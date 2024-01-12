@@ -10,3 +10,4 @@ app.py
 instance/database.db
 *.db
 website/__init__.py
+website/__init__.py

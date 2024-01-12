@@ -50,15 +50,15 @@ def sign_up():
             flash('First name must be longer than 1 characters.', category='error')
         elif password1 != password2: # passwords must match
             flash('Passwords do not match.', category='error')
-        elif len(password1) < 7:
+        elif len(password1) < 7: # password(s) must be at least 7 characters long
             flash('Password must be at leaast 7 characters.', category='error')
         else:
-            new_user = User(userName=userName, first_name=first_name, password=generate_password_hash(password1, method='scrypt'))
+            new_user = User(userName=userName, first_name=first_name, password=generate_password_hash(password1, method='scrypt')) # creates a new user and generates a hashed password for safer storage
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.home')) # redirects to the home page after a successful signup
 
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template("sign_up.html", user=current_user) # if the signup was unsuccessful, returns to the signup page
