@@ -5,7 +5,7 @@ from .task_tracker import add_xp, subtract_xp, update_level
 from . import db
 import schedule
 import time as tm
-from datetime import time, timedelta, datetime
+import datetime
 import json
 
 views = Blueprint('views', __name__)
@@ -130,7 +130,10 @@ def check_rewards(rewardId):
     checked_reward = Reward.query.get(rewardId)
     checked_reward.is_claimed = not checked_reward.is_claimed
     if checked_reward.is_claimed == True:
-        checked_reward.date = datetime.now()
+        checked_reward.date = datetime.datetime.today()
+        current_user.claimableRewards -= 1
+    else:
+        current_user.claimableRewards += 1
     db.session.commit()
     return redirect(url_for("views.rewards"))
 
