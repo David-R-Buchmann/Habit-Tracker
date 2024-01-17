@@ -4,10 +4,18 @@
 <div align="center">
     <h1 class="title is-1"> Your Reward Center </h1>
     <br/>
-    <h2 class="title is-2"> Current Level</h2>
-    <h2 class="title is-2"> {{ user.level }} </h2>
+    <h2 class="title is-3"> Current Level</h2>
+    <h2 class="title is-3"> {{ user.level }} </h2>
     <br/>
-
+    {% if user.claimableRewards == 0 %}
+    <h3 class="title is-3" style="color: red;"> You can not claim any rewards right now </h3>
+    <h4 class="title is-4">The next reward can be claimed in {{ 1 - user.claimableRewards}} levels</h4>
+    {% endif %}
+    {% if user.claimableRewards > 0 %}
+    <h3 class="title is-3" style="color: green;"> You can currently claim a reward !</h3>
+    <h4 class="title is-4">The next reward can be claimed in {{ 1 - user.claimableRewards}} levels</h4>
+    {% endif %}
+    <br/>
 </div>
 
 <br/>
@@ -16,7 +24,15 @@
     <h2 class="title is-2"><i class="fas fa-gift" aria-hidden="true"></i> Next Rewards</h2>
     <ul class="list-group list-group-flush">
         {% for reward in user.rewards %}
+        {% if reward.is_claimed == False %}
             <li class="list-group-item">
+                {% if user.claimableRewards > 0 %}
+                <a href="{{ url_for('views.check_rewards', rewardId=reward.id) }}">
+                    <button type="button" class="btn btn-sm btn-success">
+                        <i class="fas fa-check"> Claim reward </i>
+                    </button>
+                </a>
+                {% endif %}
                 <span> {{ reward.data }} &nbsp;</span>
                 <a href="{{ url_for('views.edit_rewards', rewardId = reward.id)}}">
                     <button type="button" class="btn btn-sm btn-warning">
@@ -31,6 +47,7 @@
                 </a>
                 </button>
             </li>
+        {% endif %}
         {% endfor %}
     </ul>
     <br/>
@@ -48,5 +65,15 @@
 
 <div align="center">    
     <h3 class="title is-3"> Reward history </h3>
+    {% for reward in user.rewards %}
+    {% if reward.is_claimed == True %}
+    <li class="list-group-item">
+        <span> 
+            <h5 class="title is-5">{{ reward.data }}</h5>
+            Claimed at: {{ reward.date }}
+        </span>
+    </li>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

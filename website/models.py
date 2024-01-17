@@ -35,6 +35,7 @@ class User(db.Model, UserMixin): # the user class has the most variables:
     notes = db.relationship('Note') # creates a relationship from Notes, Tasks and Rewards to their corresponding users
     tasks = db.relationship('Task')
     rewards = db.relationship('Reward')
+    claimableRewards = db.Column(db.Integer, default=0) # stores how many rewards can be claimed by the user
     totalXp = db.Column(db.Integer, default=0) # stores total and current XP as well as level and level progress as integers for each user
     currentXp = db.Column(db.Integer, default=0)
     level = db.Column(db.Integer, default=0)

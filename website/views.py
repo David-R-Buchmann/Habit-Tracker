@@ -3,6 +3,9 @@ from flask_login import login_required, current_user
 from .models import Note, User, Task, Reward
 from .task_tracker import add_xp, subtract_xp, update_level
 from . import db
+import schedule
+import time as tm
+from datetime import time, timedelta, datetime
 import json
 
 views = Blueprint('views', __name__)
@@ -108,6 +111,7 @@ def delete_note():
     
     return jsonify({})
 
+
 @views.route('/add-reward', methods=['POST'])
 def add_rewards():
     reward = request.form.get('reward')
@@ -121,7 +125,17 @@ def add_rewards():
     return redirect(url_for("views.rewards"))
 
 
-@views.route('/edit-task/<int:rewardId>', methods=['GET', 'POST'])
+@views.route('/check-reward/<int:rewardId>')
+def check_rewards(rewardId):
+    checked_reward = Reward.query.get(rewardId)
+    checked_reward.is_claimed = not checked_reward.is_claimed
+    if checked_reward.is_claimed == True:
+        checked_reward.date = datetime.now()
+    db.session.commit()
+    return redirect(url_for("views.rewards"))
+
+
+@views.route('/edit-reward/<int:rewardId>', methods=['GET', 'POST'])
 def edit_rewards(rewardId):
     reward = Reward.query.get(rewardId)
     if request.method == "POST":
@@ -132,7 +146,7 @@ def edit_rewards(rewardId):
         return render_template("edit-reward.html", reward=reward, user=current_user)
 
 
-@views.route('/delete-task/<int:rewardId>')
+@views.route('/delete-reward/<int:rewardId>')
 def delete_rewards(rewardId):
     reward = Reward.query.get(rewardId)
     if reward:
