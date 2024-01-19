@@ -19,6 +19,7 @@ class Task(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now()) # the date where the task was added is also stored
     xp = db.Column(db.Integer, default=10) # each task has its own XP value with a standard value of 10
     is_done = db.Column(db.Boolean, default=False) # this boolean signifies if the task is completed or not
+    scheduling_interval = db.Column(db.String(100)) # a string representing the interval at which it is scheduled and the is_done value is reset using the scheduler
 
 class Reward(db.Model):
     id = db.Column(db.Integer, primary_key=True) # see Task/Note
