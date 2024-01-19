@@ -31,7 +31,3 @@ def update_level():
     new_level_progress = int((user.currentXp / user.levelRequirement) * 100)
     user.level_progress = f'{new_level_progress} %'
     db.session.commit()
-
-def refresh_tasks():
-    for task in user.tasks:
-        task.is_done == False

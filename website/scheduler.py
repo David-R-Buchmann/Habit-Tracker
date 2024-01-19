@@ -5,9 +5,9 @@ from .models import User, Task
 from flask import current_app
 from . import db
 
-def daily_update():
+def daily_update(app):
     
-    with current_app.app_context():
+    with app.app_context():
         print("Daily update at: ", datetime.now()) 
         all_users = User.query.all() # Retrieves all users from the database as 'all_users'
         for user in all_users:
@@ -16,9 +16,9 @@ def daily_update():
                     task.is_done = False # Resets the 'done' state of a task to False again
                     db.session.commit()
 
-def weekly_update(): # see daily update
+def weekly_update(app): # see daily update
     
-    with current_app.app_context():
+    with app.app_context():
         print("Weekly update at: ", datetime.now())
         all_users = User.query.all()
         for user in all_users:
@@ -27,9 +27,9 @@ def weekly_update(): # see daily update
                     task.is_done = False
                     db.session.commit()
 
-def monthly_update(): # see daily update
+def monthly_update(app): # see daily update
     
-    with current_app.app_context():
+    with app.app_context():
         print("Monthly update at: ", datetime.now())
         all_users = User.query.all()
         for user in all_users:
@@ -39,7 +39,7 @@ def monthly_update(): # see daily update
                     db.session.commit()
 
 
-def start_scheduler():
+def start_scheduler(app):
     # Define the timezone as CET (for Europe/Berlin)
     cet_timezone = timezone('Europe/Berlin')
 
@@ -47,12 +47,12 @@ def start_scheduler():
     scheduler = BackgroundScheduler(timezone=cet_timezone)
 
     # Daily update at 06:00 CET (Central European Time)
-    scheduler.add_job(daily_update, trigger="cron", hour=14, minute=26)
+    scheduler.add_job(daily_update, args=[app], trigger="cron", hour=15, minute=0)
     # Weekly update every Monday at 10:00 CET
-    scheduler.add_job(weekly_update, trigger="cron", day_of_week="fri", hour=14, minute=26)
+    scheduler.add_job(weekly_update, args=[app], trigger="cron", day_of_week="fri", hour=15, minute=0)
 
     # Monthly update on the first day of the month at 10:00 CET
-    scheduler.add_job(monthly_update, trigger="cron", day="19", hour=14, minute=26)
+    scheduler.add_job(monthly_update, args=[app], trigger="cron", day="19", hour=15, minute=0)
 
     # Start the initiated scheduler
     scheduler.start()
