@@ -43,7 +43,7 @@
     {% endfor %}
 </ul>
 <br/>
-    <form action="{{ url_for('views.add_task', taskXp = user.dailyXpValue, scheduling_interval = 'daily')}}" method="post">
+    <form action="{{ url_for('views.add_task', taskXp = user.dailyXpValue)}}" method="post">
         <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
         <button type="submit" class="btn btn-success">
             <span class="icon is-small">
@@ -87,7 +87,7 @@
         {% endfor %}
     </ul>
     <br/>
-        <form action="{{ url_for('views.add_task', taskXp = user.weeklyXpValue, scheduling_interval = 'weekly') }}" method="post">
+        <form action="{{ url_for('views.add_task', taskXp = user.weeklyXpValue) }}" method="post">
             <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
             <button type="submit" class="btn btn-success">
                 <span class="icon is-small">
@@ -131,7 +131,7 @@
         {% endfor %}
     </ul>
     <br/>
-        <form action="{{ url_for('views.add_task', taskXp = user.monthlyXpValue, scheduling_interval = 'monthly') }}" method="post">
+        <form action="{{ url_for('views.add_task', taskXp = user.monthlyXpValue) }}" method="post">
             <input type="text" name='task' placeholder="Enter task name here" style="height: 34px">
             <button type="submit" class="btn btn-success">
                 <span class="icon is-small">

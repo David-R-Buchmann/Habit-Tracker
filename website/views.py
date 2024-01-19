@@ -54,18 +54,23 @@ def add_task(taskXp):
     if len(task) < 1:
         flash('Task name too short!', category='error')
     else:
-        new_task = Task(data=task, user_id=current_user.id, xp=taskXp)
+        if taskXp == current_user.dailyXpValue:
+            scheduling_interval = 'daily'
+        elif taskXp == current_user.weeklyXpValue:
+            scheduling_interval = 'weekly'
+        elif taskXp == current_user.monthlyXpValue:
+            scheduling_interval = 'monthly'
+        new_task = Task(data=task, user_id=current_user.id, xp=taskXp, scheduling_interval=scheduling_interval)
         db.session.add(new_task)
         db.session.commit()
         flash('Task added!')
         print(new_task.is_done)
+        print(new_task.scheduling_interval)
     return redirect(url_for("views.task"))
 
 
 @views.route('/edit/<int:taskId>', methods=['GET', 'POST'])
 def edit_tasks(taskId):
-    # task = json.loads(request.data)
-    # taskId = task['taskId']
     task = Task.query.get(taskId)
     if request.method == "POST":
         task.data = request.form['task']
