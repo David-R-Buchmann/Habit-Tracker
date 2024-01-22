@@ -18,7 +18,12 @@
     {% for task in user.tasks %}
     {% if task.xp == user.dailyXpValue %}
         <li class="list-group-item">
-            <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
+            {% if task.is_done %}
+                <i class="far fa-check-square"></i>
+            {% endif %}
+            {% if task.is_done == False %}
+                <i class="far fa-square"></i>
+            {% endif %}
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-success">
@@ -62,7 +67,12 @@
         {% for task in user.tasks %}
         {% if task.xp == user.weeklyXpValue %}
         <li class="list-group-item">
-            <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
+            {% if task.is_done %}
+                <i class="far fa-check-square"></i>
+            {% endif %}
+            {% if task.is_done == False %}
+                <i class="far fa-square"></i>
+            {% endif %}
             <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
             <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                 <button type="button" class="btn btn-sm btn-success">
@@ -106,7 +116,12 @@
         {% for task in user.tasks %}
         {% if task.xp == user.monthlyXpValue %}
             <li class="list-group-item">
-                <input type="checkbox" name="done" {% if task.is_done %} checked {%endif%} disabled onchange="this.form.submit()">
+                {% if task.is_done %}
+                    <i class="far fa-check-square"></i>
+                {% endif %}
+                {% if task.is_done == False %}
+                    <i class="far fa-square"></i>
+                {% endif %}
                 <span {% if task.is_done %} style="text-decoration: line-through" {% endif %}>{{ task.data }}</span>
                 <a href="{{ url_for('views.check_tasks', taskId = task.id)}}">
                     <button type="button" class="btn btn-sm btn-success">

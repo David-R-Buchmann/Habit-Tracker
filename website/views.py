@@ -77,7 +77,7 @@ def edit_tasks(taskId):
         db.session.commit()
         return redirect(url_for("views.task"))
     else:
-        return render_template("edit.html", task=task, user=current_user)
+        return render_template("edit-task.html", task=task, user=current_user)
 
 
 @views.route('/check/<int:taskId>')
