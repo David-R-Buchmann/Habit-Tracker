@@ -67,20 +67,30 @@
     <h3 class="title is-3"> Reward history </h3>
     {% for reward in user.rewards %}
     {% if reward.is_claimed == True %}
-    <li class="list-group-item">
-        <span> 
-            <span>
-            <h5 class="title is-5">{{ reward.data }}</h5>
-            Claimed at: {{ reward.date.strftime("%d.%m.%Y %H:%M") }} &nbsp;
-            </span>
-            <a href="{{ url_for('views.check_rewards', rewardId=reward.id) }}">
-                <button type="button" class="btn btn-sm btn-warning">
-                    <i class="fas fa-undo"> Unclaim reward </i>
-                </button>
-            </a>
-        </span>
-    </li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Reward claimed</th>
+                <th scope="col" class="text-center">Claimed at</th>
+                <th scope="col" class="text-right text-truncate"> Unclaim reward </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row" class="text-left">{{ reward.data }}</th>
+                <td class="text-center text-truncate">{{ reward.date.strftime("%d.%m.%Y %H:%M") }}</td>
+                <td class="text-right">
+                    <a href="{{ url_for('views.check_rewards', rewardId=reward.id) }}">
+                        <button type="button" class="btn btn-sm btn-warning">
+                            <i class="fas fa-undo"> </i>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     {% endif %}
     {% endfor %}
 </div>
+
 {% endblock %}
