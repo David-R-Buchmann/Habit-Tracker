@@ -3,8 +3,6 @@ from flask_login import login_required, current_user
 from .models import Note, User, Task, Reward
 from .task_tracker import add_xp, subtract_xp, update_level
 from . import db
-import schedule
-import time as tm
 import datetime
 import json
 

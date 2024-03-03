@@ -47,7 +47,7 @@ def start_scheduler(app):
     scheduler = BackgroundScheduler(timezone=cet_timezone)
 
     # Daily update at 06:00 CET (Central European Time)
-    scheduler.add_job(daily_update, args=[app], trigger="cron", hour=13, minute=00)
+    scheduler.add_job(daily_update, args=[app], trigger="cron", hour=6, minute=00)
 
     # Weekly update every Monday at 10:00 CET
     scheduler.add_job(weekly_update, args=[app], trigger="cron", day_of_week="mon", hour=10, minute=0)
